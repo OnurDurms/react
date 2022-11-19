@@ -16,5 +16,13 @@
   color: #2980b9;
   text-decoration: none;
 }
-.card{ --bs-card-height: 40rem !important; }
+.card{ 
+  --bs-card-height: 40rem !important;
+  background-color: #2980b9;
+ }
+ .cardBody{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
 .card.bg-dark{ border-radius: 1rem; }

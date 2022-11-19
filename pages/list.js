@@ -52,11 +52,12 @@ export default function List() {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <h1 className={styles.title}>
-            To Do List
-        </h1>
-
         <div className={"row"}>
+           <div className="col-lg-12">
+              <h1 className={"text-center " + styles.title}>
+                  To Do List
+              </h1>
+          </div>
           {dataState && dataState.length > 0 ? 
               dataState.map((el,index) => 
               <div key={index} className={el.status == 2 ? "col-lg-4 " + styles.opacity + " " + styles.flipCard: "col-lg-4 " + styles.flipCard}>
@@ -87,7 +88,12 @@ export default function List() {
                 </div>
               </div>
               )
-          : ""}
+          : 
+          <div className="col-lg-12">
+              <p className="text-center ">
+                  Kullanıcıya ait task bulunamadı.
+              </p>
+          </div>}
         </div>
       </main>
     </div>
