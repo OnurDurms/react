@@ -2,10 +2,10 @@
 import { useRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Router,{ useRouter } from 'next/router';
-import styles from '../styles/login.module.css';
+import styles from '../styles/detail.module.css';
 import { GET_MAIN, GET_SUB } from '../redux/types';
 
-export default function Login() {
+export default function Detail() {
     const mainListData = useSelector((state) => state.mainData);
     const { main } = mainListData;
     const subListData = useSelector((state) => state.subData);
@@ -73,10 +73,10 @@ export default function Login() {
                     <div className="container py-5 h-100">
                         <div className="row d-flex justify-content-center align-items-center h-100">
                             <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                                <div className="card bg-dark text-white">
-                                    <div className="card-body p-5 text-center">
+                                <div className={"card text-white " + styles.card}>
+                                    <div className={"card-body p-5 text-center " + styles.cardBody}>
                                         <div className="mb-md-5 mt-md-4 pb-5">
-                                            <h1 className="fw-bold mb-20 text-uppercase">To Do App!</h1>
+                                            <h1 className="fw-bold mb-20 text-uppercase">Edit Task</h1>
                                             <h4 className="fw-bold mb-2 text-uppercase">{taskState && taskState.length > 0 ? "Task #" + taskState[0].taskId : ""}</h4>
 
                                             <div className="form-outline form-white mb-4">

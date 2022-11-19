@@ -27,7 +27,7 @@ export default function List() {
   }, [isAdmin == 1 ? main : sub]);
 
   const settings = (e,task) => {
-    if(e.target.value == 1){
+    if(e == 1){
       Router.push({
         pathname: '/detail',
         query: { task: task.taskId },
@@ -53,30 +53,39 @@ export default function List() {
     <div className={styles.container}>
       <main className={styles.main}>
         <h1 className={styles.title}>
-            To Do App!
+            To Do List
         </h1>
 
-        <div className={styles.grid}>
+        <div className={"row"}>
           {dataState && dataState.length > 0 ? 
-              dataState.map((el) => 
-                  <a key={el.taskId} className={el.status == 2 ? styles.opacity : styles.card}>
+              dataState.map((el,index) => 
+              <div key={index} className={el.status == 2 ? "col-lg-4 " + styles.opacity + " " + styles.flipCard: "col-lg-4 " + styles.flipCard}>
+                <div className={styles.flipCardInner}>
+                  <div className={styles.flipCardFront}>
                     <h2 className={styles.marginButtom}>Task #{el.taskId}</h2>
                     <h3 className={styles.marginButtom}>{el.taskTitle}</h3>
                     <p className={styles.marginButtom}>{el.taskDescription}</p>
                     <div className={"row " + styles.marginButtom}>
-                      <div className="col-lg-6">
+                      <div className={"col-lg-12 " + styles.user}>
                         <span>Atanan: {el.name}</span>
                       </div>
-                      <div className="col-lg-6">
+                      <div className={"col-lg-12 " + styles.createDate}>
                         <span>Oluşturulma Tarihi: {el.created_at}</span>
                       </div>
                     </div>
-                    <select className={"form-select form-select-sm " + styles.cardSelectBox} defaultValue={"0"} onChange={(e) => settings(e,el)} aria-label=".form-select-sm example">
-                      <option value="0">İşlemler</option>
-                      <option value="1">Düzenle</option>
-                      <option value="2">Sil</option>
-                    </select>
-                  </a>
+                  </div>
+                  <div className={styles.flipCardBack}>
+                    <div className={"row " + styles.marginButtom}>
+                      <div className="col-lg-12">
+                          <button type="button" className="btn btn-warning" onClick={() => settings(1,el)}>Düzenle</button>
+                      </div>
+                      <div className="col-lg-12">
+                          <button type="button" className="btn btn-danger" onClick={() => settings(2,el)}>Sil</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               )
           : ""}
         </div>
