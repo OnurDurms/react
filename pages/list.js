@@ -33,14 +33,18 @@ export default function List() {
         query: { task: task.taskId },
       })
     }else{
+      let itemStatus = 2;
+      if(e == 3){
+        itemStatus = 1
+      }
       if(isAdmin == 1){
-        main.filter((el) => el.taskId == task.taskId )[0].status = 2;
+        main.filter((el) => el.taskId == task.taskId )[0].status = itemStatus;
         dispatch({
           type: GET_MAIN,
           payload: main,
         });
       }else{
-        sub.filter((el) => el.taskId == task.taskId )[0].status = 2;
+        sub.filter((el) => el.taskId == task.taskId )[0].status = itemStatus;
         dispatch({
           type: GET_SUB,
           payload: sub,
@@ -80,9 +84,13 @@ export default function List() {
                       <div className="col-lg-12">
                           <button type="button" className="btn btn-warning" onClick={() => settings(1,el)}>Düzenle</button>
                       </div>
+                      {el.status == 2 ? 
+                      <div className="col-lg-12">
+                          <button type="button" className="btn btn-outline-light " onClick={() => settings(3,el)}>Geri Al</button>
+                      </div> : 
                       <div className="col-lg-12">
                           <button type="button" className="btn btn-danger" onClick={() => settings(2,el)}>Sil</button>
-                      </div>
+                      </div>}
                     </div>
                   </div>
                 </div>
