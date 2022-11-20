@@ -19,9 +19,13 @@ a {
   html {
     color-scheme: dark;
   }
+
   body {
     color: #2980b9;
     background: #ddd;
   }
 }
-.card{ --bs-card-height: 40rem !important; }
+
+.card {
+  --bs-card-height: 40rem !important;
+}

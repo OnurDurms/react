@@ -17,21 +17,21 @@ export default function Login() {
         const passwordValue = password.current.value;
 
         const selectedItemFilter = main.filter((item) => item.email == emailValue && item.password == passwordValue);
-        if(selectedItemFilter.length > 0){
-            if(!selectedItemFilter[0].isAdmin){
+        if (selectedItemFilter.length > 0) {
+            if (!selectedItemFilter[0].isAdmin) {
                 dispatch({
                     type: IS_ADMIN,
                     payload: 0,
-                  });
+                });
                 dispatch({
                     type: GET_SUB,
                     payload: selectedItemFilter,
-                  });
-            }else{
+                });
+            } else {
                 dispatch({
                     type: IS_ADMIN,
                     payload: 1,
-                  });
+                });
             }
             Router.push('/list');
         }
@@ -51,11 +51,11 @@ export default function Login() {
                                             <p className="text-white-50 mb-5">Please enter your login and password!</p>
 
                                             <div className="form-outline form-white mb-4">
-                                                <input type="email" id="typeEmailX" className="form-control form-control-lg" placeholder='Email' ref={email}/>
+                                                <input type="email" id="typeEmailX" className="form-control form-control-lg" placeholder='Email' ref={email} />
                                             </div>
 
                                             <div className="form-outline form-white mb-4">
-                                                <input type="password" id="typePasswordX" className="form-control form-control-lg" placeholder='Password' ref={password}/>
+                                                <input type="password" id="typePasswordX" className="form-control form-control-lg" placeholder='Password' ref={password} />
                                             </div>
 
                                             <button className="btn btn-outline-light btn-lg px-5" onClick={() => login()}>Login</button>

@@ -12,39 +12,39 @@ export default function List() {
   const isAdminData = useSelector((state) => state.isAdmin);
   const { isAdmin } = isAdminData;
   const dispatch = useDispatch();
-  const [dataState,setDataState] = useState([]);
+  const [dataState, setDataState] = useState([]);
 
   useEffect(() => {
-    if(isAdmin == 1){
-      if(main !== dataState){
+    if (isAdmin == 1) {
+      if (main !== dataState) {
         setDataState(main);
       }
-    }else{
-      if(sub !== dataState){
+    } else {
+      if (sub !== dataState) {
         setDataState(sub.filter((el) => el.status !== 2));
       }
     }
   }, [isAdmin == 1 ? main : sub]);
 
-  const settings = (e,task) => {
-    if(e == 1){
+  const settings = (e, task) => {
+    if (e == 1) {
       Router.push({
         pathname: '/detail',
         query: { task: task.taskId },
       })
-    }else{
+    } else {
       let itemStatus = 2;
-      if(e == 3){
+      if (e == 3) {
         itemStatus = 1
       }
-      if(isAdmin == 1){
-        main.filter((el) => el.taskId == task.taskId )[0].status = itemStatus;
+      if (isAdmin == 1) {
+        main.filter((el) => el.taskId == task.taskId)[0].status = itemStatus;
         dispatch({
           type: GET_MAIN,
           payload: main,
         });
-      }else{
-        sub.filter((el) => el.taskId == task.taskId )[0].status = itemStatus;
+      } else {
+        sub.filter((el) => el.taskId == task.taskId)[0].status = itemStatus;
         dispatch({
           type: GET_SUB,
           payload: sub,
@@ -57,14 +57,14 @@ export default function List() {
     <div className={styles.container}>
       <main className={styles.main}>
         <div className={"row"}>
-           <div className="col-lg-12">
-              <h1 className={"text-center " + styles.title}>
-                  To Do List
-              </h1>
+          <div className="col-lg-12">
+            <h1 className={"text-center " + styles.title}>
+              To Do List
+            </h1>
           </div>
-          {dataState && dataState.length > 0 ? 
-              dataState.map((el,index) => 
-              <div key={index} className={el.status == 2 ? "col-lg-4 " + styles.opacity + " " + styles.flipCard: "col-lg-4 " + styles.flipCard}>
+          {dataState && dataState.length > 0 ?
+            dataState.map((el, index) =>
+              <div key={index} className={el.status == 2 ? "col-lg-4 " + styles.opacity + " " + styles.flipCard : "col-lg-4 " + styles.flipCard}>
                 <div className={styles.flipCardInner}>
                   <div className={styles.flipCardFront}>
                     <h2 className={styles.marginButtom}>Task #{el.taskId}</h2>
@@ -82,26 +82,26 @@ export default function List() {
                   <div className={styles.flipCardBack}>
                     <div className={"row " + styles.marginButtom}>
                       <div className="col-lg-12">
-                          <button type="button" className="btn btn-warning" onClick={() => settings(1,el)}>Düzenle</button>
+                        <button type="button" className="btn btn-warning" onClick={() => settings(1, el)}>Düzenle</button>
                       </div>
-                      {el.status == 2 ? 
-                      <div className="col-lg-12">
-                          <button type="button" className="btn btn-outline-light " onClick={() => settings(3,el)}>Geri Al</button>
-                      </div> : 
-                      <div className="col-lg-12">
-                          <button type="button" className="btn btn-danger" onClick={() => settings(2,el)}>Sil</button>
-                      </div>}
+                      {el.status == 2 ?
+                        <div className="col-lg-12">
+                          <button type="button" className="btn btn-outline-light " onClick={() => settings(3, el)}>Geri Al</button>
+                        </div> :
+                        <div className="col-lg-12">
+                          <button type="button" className="btn btn-danger" onClick={() => settings(2, el)}>Sil</button>
+                        </div>}
                     </div>
                   </div>
                 </div>
               </div>
-              )
-          : 
-          <div className="col-lg-12">
+            )
+            :
+            <div className="col-lg-12">
               <p className="text-center ">
-                  Kullanıcıya ait task bulunamadı.
+                Kullanıcıya ait task bulunamadı.
               </p>
-          </div>}
+            </div>}
         </div>
       </main>
     </div>

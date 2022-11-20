@@ -8,7 +8,7 @@ import { toDoList } from '../data/data';
 const loadState = () => {
   try {
     const serializedState = localStorage.getItem('state');
-    if(serializedState === null) {
+    if (serializedState === null) {
       return undefined;
     }
     return JSON.parse(serializedState);
@@ -26,7 +26,7 @@ const saveState = (state) => {
   }
 };
 // initial states here
-const initalState = loadState() ? loadState() : { mainData: { main : toDoList}, subData: { sub: toDoList}};
+const initalState = loadState() ? loadState() : { mainData: { main: toDoList }, subData: { sub: toDoList } };
 
 // middleware
 const middleware = [thunk];

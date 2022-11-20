@@ -1,7 +1,7 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import Router,{ useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import styles from '../styles/detail.module.css';
 import { GET_MAIN, GET_SUB } from '../redux/types';
 
@@ -15,31 +15,31 @@ export default function Detail() {
     const router = useRouter()
     const { task } = router.query;
     const dispatch = useDispatch();
-    const [taskState,setTaskState] = useState([])
+    const [taskState, setTaskState] = useState([])
     const title = useRef();
     const description = useRef();
     const email = useRef();
 
     useEffect(() => {
-        if(isAdmin == 1){
-            if(taskState.length == 0){
+        if (isAdmin == 1) {
+            if (taskState.length == 0) {
                 setTaskState(main.filter((item) => item.taskId == task));
             }
-        }else{
-            if(taskState.length == 0){
+        } else {
+            if (taskState.length == 0) {
                 setTaskState(sub.filter((item) => item.taskId == task));
             }
         }
-    },[isAdmin == 1 ? main : sub])
+    }, [isAdmin == 1 ? main : sub])
 
     const updateItem = () => {
         const titleValue = title.current.value;
         const descriptionValue = description.current.value;
         const emailValue = email.current.value;
-        
-        if(isAdmin == 1){
-            for(let item of main){
-                if(item.taskId == taskState[0].taskId){
+
+        if (isAdmin == 1) {
+            for (let item of main) {
+                if (item.taskId == taskState[0].taskId) {
                     item.email = emailValue;
                     item.taskTitle = titleValue;
                     item.taskDescription = descriptionValue;
@@ -49,9 +49,9 @@ export default function Detail() {
                 type: GET_MAIN,
                 payload: main,
             });
-        }else{
-            for(let item of sub){
-                if(item.taskId == taskState[0].taskId){
+        } else {
+            for (let item of sub) {
+                if (item.taskId == taskState[0].taskId) {
                     item.email = emailValue;
                     item.taskTitle = titleValue;
                     item.taskDescription = descriptionValue;
@@ -64,7 +64,7 @@ export default function Detail() {
         }
         Router.push({
             pathname: '/list',
-          })
+        })
     }
     return (
         <div className={styles.container}>
@@ -80,15 +80,15 @@ export default function Detail() {
                                             <h4 className="fw-bold mb-2 text-uppercase">{taskState && taskState.length > 0 ? "Task #" + taskState[0].taskId : ""}</h4>
 
                                             <div className="form-outline form-white mb-4">
-                                                <input type="text" id="typeTitleX" className="form-control form-control-lg" defaultValue={taskState && taskState.length > 0 ? taskState[0].taskTitle : ""} ref={title}/>
+                                                <input type="text" id="typeTitleX" className="form-control form-control-lg" defaultValue={taskState && taskState.length > 0 ? taskState[0].taskTitle : ""} ref={title} />
                                             </div>
 
                                             <div className="form-outline form-white mb-4">
-                                                <input type="text" id="typeDescriptionX" className="form-control form-control-lg" defaultValue={taskState && taskState.length > 0 ? taskState[0].taskDescription : ""} ref={description}/>
+                                                <input type="text" id="typeDescriptionX" className="form-control form-control-lg" defaultValue={taskState && taskState.length > 0 ? taskState[0].taskDescription : ""} ref={description} />
                                             </div>
-                                            
+
                                             <div className="form-outline form-white mb-4">
-                                                <input type="email" id="typeEmailX" className="form-control form-control-lg" defaultValue={taskState && taskState.length > 0 ? taskState[0].email : ""} ref={email}/>
+                                                <input type="email" id="typeEmailX" className="form-control form-control-lg" defaultValue={taskState && taskState.length > 0 ? taskState[0].email : ""} ref={email} />
                                             </div>
 
                                             <button className="btn btn-outline-light btn-lg px-5" onClick={() => updateItem()}>Güncelle</button>
