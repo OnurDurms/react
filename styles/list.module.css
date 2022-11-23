@@ -123,3 +123,13 @@
 .opacity {
   opacity: 0.5;
 }
+
+.fontSize{
+  font-size: 12px;
+}
+
+.addButton{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}

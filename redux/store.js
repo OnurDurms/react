@@ -3,7 +3,6 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { createWrapper } from "next-redux-wrapper";
 import rootReducer from "./reducers";
-import { toDoList } from '../data/data';
 
 const loadState = () => {
   try {
@@ -25,8 +24,9 @@ const saveState = (state) => {
     // Ignore write errors;
   }
 };
-// initial states here
-const initalState = loadState() ? loadState() : { mainData: { main: toDoList }, subData: { sub: toDoList } };
+
+
+let initalState = loadState() ? loadState() : { mainData: { main: [] }, subData: { sub: [] } };
 
 // middleware
 const middleware = [thunk];

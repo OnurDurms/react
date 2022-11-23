@@ -1,48 +1,36 @@
 
-import { useRef } from 'react';
-import { useDispatch } from "react-redux";
+import { useRef, useState } from 'react';
 import Router from 'next/router';
 import styles from '../styles/login.module.css'
-import { GET_SUB, IS_ADMIN } from '../redux/types';
 import axios from 'axios';
 
-export default function Login() {
-    const dispatch = useDispatch();
+export default function Register() {
+    const [registerText,setRegisterState] = useState(0);
+    const name = useRef();
     const email = useRef();
     const password = useRef();
+    const isAdmin = useRef();
 
-    const login = () => {
+    const register = () => {
+        const nameValue = name.current.value;
         const emailValue = email.current.value;
         const passwordValue = password.current.value;
+        const isAdminValue = isAdmin.current.value;
 
-        axios.post("http://localhost:1453/api/user/login", {
+        axios.post("http://localhost:1453/api/user/register", {
+                name: nameValue,
                 email: emailValue,
-                password: passwordValue
+                password: passwordValue,
+                isAdmin: isAdminValue
           })
             .then(res => {
-                localStorage.setItem("token", res.data.token);
-                if (!res.data.user.isAdmin) {
-                    dispatch({
-                        type: IS_ADMIN,
-                        payload: 0,
-                    });
-                    dispatch({
-                        type: GET_SUB,
-                        payload: res.data.user,
-                    });
-                } else {
-                    dispatch({
-                        type: IS_ADMIN,
-                        payload: 1,
-                    });
-                }
-                Router.push('/list');
+                setRegisterState(1);
             })
             .catch((err) => console.log(err));
     }
 
-    const register = () => {
-        Router.push('/register');
+    const login = () => {
+        Router.push('/');
     }
     return (
         <div className={styles.container}>
@@ -55,8 +43,11 @@ export default function Login() {
                                     <div className={"card-body p-5 text-center " + styles.cardBody}>
                                         <div className="mb-md-5 mt-md-4 pb-5">
                                             <h1 className="fw-bold mb-20 text-uppercase">To Do List App!</h1>
-                                            <h4 className="fw-bold mb-2 text-uppercase">Login</h4>
-                                            <p className="text-white-50 mb-5">Please enter your login and password!</p>
+                                            <h4 className="fw-bold mb-2 text-uppercase">Register</h4>
+
+                                            <div className="form-outline form-white mb-4">
+                                                <input type="email" id="typeNameX" className="form-control form-control-lg" placeholder='Name' ref={name} />
+                                            </div>
 
                                             <div className="form-outline form-white mb-4">
                                                 <input type="email" id="typeEmailX" className="form-control form-control-lg" placeholder='Email' ref={email} />
@@ -65,10 +56,21 @@ export default function Login() {
                                             <div className="form-outline form-white mb-4">
                                                 <input type="password" id="typePasswordX" className="form-control form-control-lg" placeholder='Password' ref={password} />
                                             </div>
-                                            <div className="text-center">
-                                                <p>Not a member? <a onClick={() => register()}>Register</a></p>
+                                            <div className="form-check">
+                                                <input className="form-check-input" type="checkbox" defaultValue={true} id="flexCheckChecked" ref={isAdmin}/>
+                                                <label className={"form-check-label " + styles.checkLabel} htmlFor="flexCheckChecked">
+                                                     isAdmin
+                                                </label>
                                             </div>
-                                            <button className="btn btn-outline-light btn-lg px-5" onClick={() => login()}>Login</button>
+
+                                            <div className="text-center">
+                                                <p><a onClick={() => login()}>Login</a></p>
+                                            </div>
+                                            <button className="btn btn-outline-light btn-lg px-5" onClick={() => register()}>Register</button>
+                                            {registerText ? 
+                                            <div className="text-center">
+                                                <p> Registration Successfull</p>
+                                            </div> : ""}
 
                                         </div>
                                     </div>

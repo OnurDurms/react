@@ -6,12 +6,12 @@ export default function Card({el,settings,index}) {
             <div key={index} className={el.status == 2 ? "col-lg-4 " + styles.opacity + " " + styles.flipCard : "col-lg-4 " + styles.flipCard}>
                 <div className={styles.flipCardInner}>
                     <div className={styles.flipCardFront}>
-                        <h2 className={styles.marginButtom}>Task #{el.taskId}</h2>
-                        <h3 className={styles.marginButtom}>{el.taskTitle}</h3>
-                        <p className={styles.marginButtom}>{el.taskDescription}</p>
+                        <h2 className={styles.marginButtom + " " + styles.fontSize}>Task #{el._id}</h2>
+                        <h3 className={styles.marginButtom}>{el.title}</h3>
+                        <p className={styles.marginButtom}>{el.description}</p>
                         <div className={"row " + styles.marginButtom}>
                             <div className={"col-lg-12 " + styles.user}>
-                                <span>Atanan: {el.name}</span>
+                                <span>Atanan: {el.email}</span>
                             </div>
                             <div className={"col-lg-12 " + styles.createDate}>
                                 <span>Oluşturulma Tarihi: {el.created_at}</span>

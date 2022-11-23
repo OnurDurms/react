@@ -32,3 +32,9 @@
 .card.bg-dark {
   border-radius: 1rem;
 }
+
+.checkLabel{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}

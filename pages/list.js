@@ -16,22 +16,23 @@ export default function List() {
   const [dataState, setDataState] = useState([]);
 
   useEffect(() => {
-    if (isAdmin == 1) {
-      if (main !== dataState) {
-        setDataState(main);
+      if (isAdmin == 1) {
+        if (main !== dataState) {
+          setDataState(main);
+        }
+      } else {
+        if (sub !== dataState) {
+          setDataState(sub.filter((el) => el.status !== 2));
+        }
       }
-    } else {
-      if (sub !== dataState) {
-        setDataState(sub.filter((el) => el.status !== 2));
-      }
-    }
   }, [isAdmin == 1 ? main : sub]);
+
 
   const settings = (e, task) => {
     if (e == 1) {
       Router.push({
         pathname: '/detail',
-        query: { task: task.taskId },
+        query: { task: task._id },
       })
     } else {
       let itemStatus = 2;
@@ -39,13 +40,13 @@ export default function List() {
         itemStatus = 1
       }
       if (isAdmin == 1) {
-        main.filter((el) => el.taskId == task.taskId)[0].status = itemStatus;
+        main.filter((el) => el._id == task._id)[0].status = itemStatus;
         dispatch({
           type: GET_MAIN,
           payload: main,
         });
       } else {
-        sub.filter((el) => el.taskId == task.taskId)[0].status = itemStatus;
+        sub.filter((el) => el._id == task._id)[0].status = itemStatus;
         dispatch({
           type: GET_SUB,
           payload: sub,
@@ -54,6 +55,12 @@ export default function List() {
     }
   }
 
+  const addTask = () => {
+    Router.push({
+      pathname: '/detail',
+      query: { addTask: true },
+    })
+  }
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -63,9 +70,13 @@ export default function List() {
               To Do List
             </h1>
           </div>
+          <div className={"col-lg-12 " + styles.addButton}>
+            <button className="btn btn-outline-light btn-lg px-5" onClick={() => addTask()}>Add Task</button>
+          </div>
+
           {dataState && dataState.length > 0 ?
             dataState.map((el, index) =>
-              <Card el={el} index={index} settings={settings}/>
+              <Card el={el} index={index} key={index} settings={settings}/>
             )
             :
             <div className="col-lg-12">
