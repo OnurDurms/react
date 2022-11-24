@@ -1,3 +1,4 @@
+import moment from 'moment';
 import styles from '../../../styles/list.module.css'
 
 export default function Card({el,settings,index}) {
@@ -14,7 +15,7 @@ export default function Card({el,settings,index}) {
                                 <span>Atanan: {el.email}</span>
                             </div>
                             <div className={"col-lg-12 " + styles.createDate}>
-                                <span>Oluşturulma Tarihi: {el.created_at}</span>
+                                <span>Oluşturulma Tarihi: {moment(el.created_at).format('DD/MM/YYYY, hh:mm')}</span>
                             </div>
                         </div>
                     </div>
